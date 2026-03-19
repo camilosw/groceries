@@ -1,6 +1,6 @@
 # Grocery List App — Project State
 
-## Current phase: Phase 2 complete (Frequency utils)
+## Current phase: Phase 3 complete (Main screen — To Buy list)
 
 ## Stack
 - React 19 + TypeScript + Vite
@@ -19,7 +19,7 @@
 ```
 src/
   main.tsx          -- Entry point
-  App.tsx           -- Placeholder (header only); will become screen router
+  App.tsx           -- GroceryProvider + Header + MainScreen
   App.css           -- Global styles: CSS vars, reset, .app container, notebook effect
   index.css         -- Minimal body reset
   types.ts          -- GroceryItem interface, PurchasedSortMode type
@@ -28,14 +28,31 @@ src/
     frequency.ts                -- frequencyScore(), purchaseInterval(), pruneHistory()
     __tests__/
       frequency.test.ts         -- 16 tests (all passing)
+  store/
+    storage.ts                  -- GroceryState type, saveState(), loadState(), seedData()
+    grocery-reducer.ts          -- groceryReducer + GroceryAction type (CHECK_ITEM, UNCHECK_ITEM stubs for rest)
+    grocery-context.tsx         -- GroceryProvider, useGroceries hook
+    __tests__/
+      grocery-reducer.test.ts   -- 7 tests (all passing)
+      storage.test.ts           -- 6 tests (all passing)
+  components/
+    Header.tsx / Header.css     -- Sticky orange header
+    SectionHeader.tsx           -- "To Buy (N)" divider
+    BuyItem.tsx                 -- Unchecked item (checkbox + name + c/Nd badge)
+    BuyList.tsx                 -- Sorted to-buy list + empty state
+  screens/
+    MainScreen.tsx / MainScreen.css  -- To Buy section (purchased section coming in Phase 4)
+    __tests__/
+      MainScreen.test.tsx       -- 5 tests (all passing)
 ```
 
-## What's next: Phase 3
-- State management: reducer (CHECK_ITEM, UNCHECK_ITEM), context, localStorage persistence
-- Components: Header, SectionHeader, BuyItem, BuyList, MainScreen
-- Seed data for visual verification
+## What's next: Phase 4
+- Purchased list: DELETE_ITEM, SET_SORT_MODE actions
+- Components: PurchasedItem, PurchasedList
+- Add purchased section to MainScreen
+- Seed data should include already-purchased items
 
 ## Running
-- `pnpm dev` — dev server (shows orange "Grocery List" header + notebook background)
-- `pnpm test` — run all tests with Vitest
+- `pnpm dev` — dev server (shows To Buy list with seed data)
+- `pnpm test` — run all tests with Vitest (35 passing)
 - `pnpm build` — production build

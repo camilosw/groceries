@@ -1,15 +1,17 @@
-import './App.css'
+import './App.css';
+import { GroceryProvider } from './store/grocery-context';
+import { Header } from './components/Header';
+import { MainScreen } from './screens/MainScreen';
 
 function App() {
   return (
-    <div className="app">
-      <header className="app-header">
-        <div className="app-header__title">
-          🛒 Grocery List
-        </div>
-      </header>
-    </div>
-  )
+    <GroceryProvider>
+      <div className="app">
+        <Header />
+        <MainScreen />
+      </div>
+    </GroceryProvider>
+  );
 }
 
-export default App
+export default App;

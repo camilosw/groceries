@@ -43,26 +43,6 @@ body {
     -4px 0 20px rgba(0, 0, 0, 0.08);
 }
 
-/* App header */
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--orange);
-  padding: 20px 20px 16px;
-  box-shadow: 0 2px 12px rgba(232, 86, 58, 0.3);
-}
-
-.app-header__title {
-  font-family: var(--font-hand);
-  font-size: 32px;
-  font-weight: 700;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 /* Notebook line effect */
 .app::before {
   content: '';
