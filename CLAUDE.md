@@ -3,12 +3,14 @@
 ## Current phase: Phase 7 complete (Polish)
 
 ## Stack
+
 - React 19 + TypeScript + Vite
 - @dnd-kit/core + @dnd-kit/sortable (drag-and-drop with touch support)
 - Vitest + @testing-library/react + jsdom (unit/component tests)
 - Google Fonts: Caveat (handwritten) + Nunito (UI)
 
 ## Key decisions (from PLAN.md)
+
 - Purchase history: timestamp array, exponential decay frequency scoring
 - Purchase interval displayed as `c/Nd` (median gap, shown when ≥2 purchases)
 - Add button is a FAB, not inline add-bar
@@ -16,6 +18,7 @@
 - UI language: English
 
 ## File structure so far
+
 ```
 src/
   main.tsx          -- Entry point
@@ -55,12 +58,8 @@ src/
       AddScreen.test.tsx        -- 8 tests (all passing)
 ```
 
-## Phase 7 (Polish) — done
-- Check/uncheck transition animations: `itemIn` / `purchasedItemIn` CSS keyframes (0.18s ease-out slide+fade) in MainScreen.css; fire naturally on mount since items move between different component trees
-- Touch: OrderScreen already had `TouchSensor` + `touch-action: none` on handle and row
-- Persistence: context `useEffect` saves on every state change; `loadState` initialises reducer
-
 ## Running
+
 - `pnpm dev` — dev server (empty initial state; FAB opens add screen)
 - `pnpm test` — run all tests with Vitest (64 passing)
 - `pnpm build` — production build
