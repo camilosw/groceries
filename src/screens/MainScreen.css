@@ -85,6 +85,20 @@
   font-family: var(--font-hand);
   font-size: 24px;
   color: var(--text-dark);
+  cursor: text;
+}
+
+.buy-item__name-input {
+  flex: 1;
+  font-family: var(--font-hand);
+  font-size: 24px;
+  color: var(--text-dark);
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px dashed var(--orange);
+  outline: none;
+  width: 100%;
+  padding: 0;
 }
 
 .buy-item__badge {
@@ -155,6 +169,19 @@
   flex: 1;
   font-family: var(--font-hand);
   font-size: 24px;
+  cursor: text;
+}
+
+.purchased-item__name-input {
+  flex: 1;
+  font-family: var(--font-hand);
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px dashed var(--orange);
+  outline: none;
+  width: 100%;
+  padding: 0;
 }
 
 .purchased-item__badge {

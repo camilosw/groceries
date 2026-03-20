@@ -10,7 +10,8 @@ export type GroceryAction =
   | { type: 'CREATE_AND_ADD'; name: string }
   | { type: 'ADD_TO_BUY'; id: string }
   | { type: 'REMOVE_FROM_BUY'; id: string }
-  | { type: 'REORDER'; activeId: string; overId: string };
+  | { type: 'REORDER'; activeId: string; overId: string }
+  | { type: 'RENAME_ITEM'; id: string; name: string };
 
 export function groceryReducer(
   state: GroceryState,
@@ -96,6 +97,22 @@ export function groceryReducer(
         purchaseOrder: index,
       }));
       return { ...state, items: reordered };
+    }
+    case 'RENAME_ITEM': {
+      const trimmed = action.name.trim();
+      if (!trimmed) return state;
+      const duplicate = state.items.some(
+        (item) =>
+          item.id !== action.id &&
+          item.name.toLowerCase() === trimmed.toLowerCase(),
+      );
+      if (duplicate) return state;
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.id === action.id ? { ...item, name: trimmed } : item,
+        ),
+      };
     }
     default:
       return state;

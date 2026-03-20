@@ -193,3 +193,69 @@ describe('SET_SORT_MODE', () => {
     expect(next.items).toEqual(items);
   });
 });
+
+describe('RENAME_ITEM', () => {
+  it('renames the item when name is valid and unique', () => {
+    const state = makeState([makeItem({ id: '1', name: 'Milk' })]);
+    const next = groceryReducer(state, {
+      type: 'RENAME_ITEM',
+      id: '1',
+      name: 'Oat Milk',
+    });
+    expect(next.items[0].name).toBe('Oat Milk');
+  });
+
+  it('trims whitespace from the new name', () => {
+    const state = makeState([makeItem({ id: '1', name: 'Milk' })]);
+    const next = groceryReducer(state, {
+      type: 'RENAME_ITEM',
+      id: '1',
+      name: '  Oat Milk  ',
+    });
+    expect(next.items[0].name).toBe('Oat Milk');
+  });
+
+  it('returns state unchanged when trimmed name is empty', () => {
+    const state = makeState([makeItem({ id: '1', name: 'Milk' })]);
+    const next = groceryReducer(state, {
+      type: 'RENAME_ITEM',
+      id: '1',
+      name: '   ',
+    });
+    expect(next).toBe(state);
+  });
+
+  it('returns state unchanged when another item has the same name (case-insensitive)', () => {
+    const state = makeState([
+      makeItem({ id: '1', name: 'Milk' }),
+      makeItem({ id: '2', name: 'Eggs' }),
+    ]);
+    const next = groceryReducer(state, {
+      type: 'RENAME_ITEM',
+      id: '1',
+      name: 'eggs',
+    });
+    expect(next).toBe(state);
+  });
+
+  it('allows renaming to the same name (not a self-duplicate)', () => {
+    const state = makeState([makeItem({ id: '1', name: 'Milk' })]);
+    const next = groceryReducer(state, {
+      type: 'RENAME_ITEM',
+      id: '1',
+      name: 'Milk',
+    });
+    expect(next.items[0].name).toBe('Milk');
+  });
+
+  it('does not modify other items', () => {
+    const item2 = makeItem({ id: '2', name: 'Eggs' });
+    const state = makeState([makeItem({ id: '1', name: 'Milk' }), item2]);
+    const next = groceryReducer(state, {
+      type: 'RENAME_ITEM',
+      id: '1',
+      name: 'Oat Milk',
+    });
+    expect(next.items[1]).toEqual(item2);
+  });
+});

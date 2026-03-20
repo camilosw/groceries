@@ -185,6 +185,38 @@ describe('MainScreen', () => {
     expect(screen.getByText(/Nothing purchased yet/i)).toBeInTheDocument();
   });
 
+  it('clicking a buy item name enters edit mode', () => {
+    renderWithItems([
+      {
+        id: '1',
+        name: 'Milk',
+        purchaseHistory: [],
+        purchaseOrder: 0,
+        bought: false,
+      },
+    ]);
+    fireEvent.click(screen.getByText('Milk'));
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+  });
+
+  it('editing a buy item name and pressing Enter updates the name', () => {
+    renderWithItems([
+      {
+        id: '1',
+        name: 'Milk',
+        purchaseHistory: [],
+        purchaseOrder: 0,
+        bought: false,
+      },
+    ]);
+    fireEvent.click(screen.getByText('Milk'));
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: 'Oat Milk' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(screen.getByText('Oat Milk')).toBeInTheDocument();
+    expect(screen.queryByText('Milk')).not.toBeInTheDocument();
+  });
+
   it('shows Purchased section header with item count', () => {
     renderWithItems([
       {

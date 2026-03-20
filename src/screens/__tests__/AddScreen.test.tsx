@@ -98,7 +98,9 @@ describe('AddScreen', () => {
     expect(input).toHaveValue('');
     // Butter now exists in to-buy — searching shows green button
     fireEvent.change(input, { target: { value: 'Butter' } });
-    expect(screen.getByLabelText(/Remove Butter from list/i)).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(/Remove Butter from list/i),
+    ).toBeInTheDocument();
   });
 
   it('pressing Enter on new item has same effect as pressing +', () => {
@@ -108,7 +110,9 @@ describe('AddScreen', () => {
     fireEvent.keyDown(input, { key: 'Enter' });
     expect(input).toHaveValue('');
     fireEvent.change(input, { target: { value: 'Butter' } });
-    expect(screen.getByLabelText(/Remove Butter from list/i)).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(/Remove Butter from list/i),
+    ).toBeInTheDocument();
   });
 
   it('pressing Enter on existing purchased item has same effect as pressing +', () => {
@@ -126,6 +130,8 @@ describe('AddScreen', () => {
     const input = screen.getByPlaceholderText(/search or add/i);
     fireEvent.change(input, { target: { value: 'B' } });
     // Bread is in to-buy — should show green button
-    expect(screen.getByLabelText(/Remove Bread from list/i)).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(/Remove Bread from list/i),
+    ).toBeInTheDocument();
   });
 });

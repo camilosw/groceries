@@ -1,6 +1,7 @@
 import { purchaseInterval } from '../utils/frequency';
 import type { GroceryItem } from '../types';
 import { useGroceries } from '../store/grocery-context';
+import { InlineEdit } from './InlineEdit';
 
 interface BuyItemProps {
   item: GroceryItem;
@@ -19,7 +20,17 @@ export function BuyItem({ item }: BuyItemProps) {
         onChange={() => dispatch({ type: 'CHECK_ITEM', id: item.id })}
         aria-label={`Mark ${item.name} as purchased`}
       />
-      <span className="buy-item__name">{item.name}</span>
+      <InlineEdit
+        value={item.name}
+        className="buy-item__name"
+        inputClassName="buy-item__name-input"
+        onSave={(newName) => {
+          if (newName && newName !== item.name) {
+            dispatch({ type: 'RENAME_ITEM', id: item.id, name: newName });
+          }
+        }}
+        ariaLabel={`Edit name of ${item.name}`}
+      />
       {interval !== null && (
         <span className="buy-item__badge">c/{Math.round(interval)}d</span>
       )}
