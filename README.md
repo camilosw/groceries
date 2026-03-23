@@ -8,6 +8,7 @@ A mobile-first grocery list PWA built with React 19 and TypeScript.
 - **Smart frequency badges** — items display a `c/Nd` badge (e.g. `c/7d`) showing your median purchase interval once you've bought an item at least twice
 - **Add screen** — search your purchase history and add items back with one tap; new items are created inline
 - **Reorder screen** — drag-and-drop (mouse and touch) to set a custom shopping order
+- **Edit items** — tap any item name to rename it inline; confirm with Enter or blur, cancel with Escape
 - **Sort purchased items** — toggle between frequency-based and alphabetical sorting
 - **Persistent** — state is saved to `localStorage` automatically
 - **PWA** — installable on mobile; works offline
@@ -27,7 +28,7 @@ A mobile-first grocery list PWA built with React 19 and TypeScript.
 ```bash
 pnpm install
 pnpm dev       # development server at http://localhost:5173
-pnpm test      # run all tests (64 passing)
+pnpm test      # run all tests
 pnpm build     # production build
 pnpm preview   # preview production build locally
 ```
@@ -48,6 +49,7 @@ src/
     BuyItem / BuyList       # To-buy section
     PurchasedItem / PurchasedList  # Purchased section with sort toggle
     AddItemRow              # Row in the add screen
+    InlineEdit              # Tap-to-edit text field
     Header                  # Sticky header with ⋮ menu
     Fab                     # Floating "+" button
   screens/

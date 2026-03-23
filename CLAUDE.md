@@ -1,7 +1,5 @@
 # Grocery List App — Project State
 
-## Current phase: Phase 7 complete (Polish)
-
 ## Stack
 
 - React 19 + TypeScript + Vite
@@ -17,7 +15,7 @@
 - Reordering on dedicated Order screen (accessible from header ⋮ menu)
 - UI language: English
 
-## File structure so far
+## File structure
 
 ```
 src/
@@ -36,7 +34,7 @@ src/
     grocery-reducer.ts          -- groceryReducer + GroceryAction type (all actions implemented)
     grocery-context.tsx         -- GroceryProvider, useGroceries hook (empty initial state)
     __tests__/
-      grocery-reducer.test.ts   -- 20 tests (all passing)
+      grocery-reducer.test.ts   -- 23 tests (all passing)
       storage.test.ts           -- 6 tests (all passing)
   components/
     Header.tsx / Header.css     -- Sticky orange header with ⋮ menu button + dropdown
@@ -47,19 +45,21 @@ src/
     PurchasedList.tsx           -- Sort toggle (frequency/alphabetical) + purchased items + empty state
     Fab.tsx / Fab.css           -- Floating "+" button
     AddItemRow.tsx              -- Row in add screen (name + green/grey "+" button)
+    InlineEdit.tsx              -- Tap-to-edit text field (Enter/Escape/blur to save)
     __tests__/
       PurchasedList.test.tsx    -- 5 tests (all passing)
+      InlineEdit.test.tsx       -- 5 tests (all passing)
   screens/
     MainScreen.tsx / MainScreen.css  -- To Buy + Purchased sections + FAB
     AddScreen.tsx / AddScreen.css    -- Search input + item list + new item row
     OrderScreen.tsx / OrderScreen.css -- Drag-and-drop reorder list (@dnd-kit, touch support)
     __tests__/
-      MainScreen.test.tsx       -- 11 tests (all passing)
-      AddScreen.test.tsx        -- 8 tests (all passing)
+      MainScreen.test.tsx       -- 13 tests (all passing)
+      AddScreen.test.tsx        -- 9 tests (all passing)
 ```
 
 ## Running
 
 - `pnpm dev` — dev server (empty initial state; FAB opens add screen)
-- `pnpm test` — run all tests with Vitest (64 passing)
+- `pnpm test` — run all tests with Vitest (75 passing)
 - `pnpm build` — production build
