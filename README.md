@@ -57,3 +57,22 @@ src/
     AddScreen               # Search + add items
     OrderScreen             # Drag-and-drop reorder
 ```
+
+## Commit convention (Conventional Commits)
+
+All commits must follow the format: `type: description` (or `type(scope): description`)
+
+Common types:
+
+- `fix:` — bug fix → bumps **patch** (1.0.0 → 1.0.1)
+- `feat:` — new feature → bumps **minor** (1.0.0 → 1.1.0)
+- `docs:`, `chore:`, `refactor:`, `test:`, `style:` — no version bump
+
+The `commit-msg` git hook enforces this format via commitlint.
+
+## Releasing a new version
+
+```
+pnpm release          # bumps version, updates package.json, generates CHANGELOG, creates tag
+git push --follow-tags
+```

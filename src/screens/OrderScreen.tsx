@@ -72,7 +72,7 @@ export function OrderScreen({ onClose }: OrderScreenProps) {
   const ids = sorted.map((item) => item.id);
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(TouchSensor, {
       activationConstraint: { delay: 250, tolerance: 5 },
     }),
