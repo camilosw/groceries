@@ -34,6 +34,13 @@ export function BuyItem({ item }: BuyItemProps) {
       {interval !== null && (
         <span className="buy-item__badge">c/{Math.round(interval)}d</span>
       )}
+      <button
+        className="buy-item__delete"
+        onClick={() => dispatch({ type: 'DELETE_ITEM', id: item.id })}
+        aria-label={`Delete ${item.name}`}
+      >
+        ×
+      </button>
     </div>
   );
 }
