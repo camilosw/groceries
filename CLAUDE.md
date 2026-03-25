@@ -58,6 +58,11 @@ src/
       AddScreen.test.tsx        -- 9 tests (all passing)
 ```
 
+## Deployment
+
+- Repository hosted on **GitHub**
+- Production deployed via **Vercel** (auto-deploys on push to main)
+
 ## Running
 
 - `pnpm dev` — dev server (empty initial state; FAB opens add screen)
@@ -86,3 +91,33 @@ For the first release (one-time, to create the initial tag without bumping):
 ```
 pnpm release:first
 ```
+
+## Development Workflow
+
+Every fix or feature follows this 3-phase process:
+
+### Phase 1 — Plan (`/project:plan`)
+- Explore relevant code, present structured plan
+- Refine with user until approved
+- No code changes in this phase
+
+### Phase 2 — Implement (`/project:implement`)
+- Create branch: `fix/short-description` or `feat/short-description`
+- Implement, run `pnpm test` + `pnpm build`
+- If visual change: verify with Playwright MCP on `http://localhost:5173`
+- Commit (Conventional Commits), push, create PR with `gh pr create`
+- Get Vercel preview URL via `gh pr checks`
+- Deliver PR URL + Vercel preview URL to user
+
+### Phase 3 — Release (`/project:release`)
+- User approves the PR visually
+- Squash merge: `gh pr merge --squash --delete-branch`
+- `git checkout main && git pull`
+- `pnpm release` (bumps version, updates CHANGELOG, creates tag)
+- `git push --follow-tags`
+
+### Rules
+- Never merge without explicit user approval
+- Never bump version before merging
+- Always deliver both PR URL and Vercel preview URL after implementing
+- Vercel auto-deploys PRs (preview) and main (production) via GitHub integration
