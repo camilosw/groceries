@@ -112,6 +112,21 @@
   white-space: nowrap;
 }
 
+.buy-item__delete {
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+
+.buy-item__delete:hover {
+  color: var(--orange);
+}
+
 /* Purchased list */
 .purchased-list {
   padding-bottom: 100px;

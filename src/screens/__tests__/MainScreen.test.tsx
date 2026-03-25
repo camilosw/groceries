@@ -158,6 +158,20 @@ describe('MainScreen', () => {
     ).toBeInTheDocument();
   });
 
+  it('deleting a to-buy item removes it permanently', () => {
+    renderWithItems([
+      {
+        id: '1',
+        name: 'Milk',
+        purchaseHistory: [],
+        purchaseOrder: 0,
+        bought: false,
+      },
+    ]);
+    fireEvent.click(screen.getByLabelText(/Delete Milk/i));
+    expect(screen.queryByText('Milk')).not.toBeInTheDocument();
+  });
+
   it('deleting a purchased item removes it permanently', () => {
     renderWithItems([
       {
