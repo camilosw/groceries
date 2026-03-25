@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/camilosw/groceries/compare/v1.1.3...v1.2.0) (2026-03-25)
+
+
+### Features
+
+* add delete button to to-buy items ([#2](https://github.com/camilosw/groceries/issues/2)) ([25c9533](https://github.com/camilosw/groceries/commit/25c953393a85f17244631959e2ba89d2f19038a7))
+
 ## [1.1.3](https://github.com/camilosw/groceries/compare/v1.1.2...v1.1.3) (2026-03-25)
 
 
