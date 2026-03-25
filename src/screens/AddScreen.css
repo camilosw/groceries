@@ -14,9 +14,6 @@
   padding: 10px 16px;
   background: var(--bg-divider);
   border-bottom: 1px solid var(--line-color);
-  position: sticky;
-  top: 56px;
-  z-index: 10;
 }
 
 .add-screen__back {
