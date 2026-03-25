@@ -113,6 +113,10 @@
 }
 
 /* Purchased list */
+.purchased-list {
+  padding-bottom: 100px;
+}
+
 .purchased-list__sort-bar {
   display: flex;
   gap: 8px;
