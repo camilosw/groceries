@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.3](https://github.com/camilosw/groceries/compare/v1.2.2...v1.2.3) (2026-03-26)
+
+
+### Bug Fixes
+
+* make 3-phase workflow mandatory in CLAUDE.md ([37468a5](https://github.com/camilosw/groceries/commit/37468a56425c982bfe93b1adffbf42cf4c0a9e6a))
+* remove c/ prefix from frequency badge ([#5](https://github.com/camilosw/groceries/issues/5)) ([4245808](https://github.com/camilosw/groceries/commit/4245808fd1c9ff88f4e7c843a088f69e9e3697f5))
+
 ## [1.2.2](https://github.com/camilosw/groceries/compare/v1.2.1...v1.2.2) (2026-03-25)
 
 
