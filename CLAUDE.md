@@ -94,30 +94,41 @@ pnpm release:first
 
 ## Development Workflow
 
-Every fix or feature follows this 3-phase process:
+> **IMPORTANT: You MUST follow this workflow for every bug fix, feature, or code change request. This is not optional. Do not skip phases or start coding without an approved plan.**
 
-### Phase 1 — Plan (`/project:plan`)
-- Explore relevant code, present structured plan
-- Refine with user until approved
-- No code changes in this phase
+When the user asks you to fix a bug, add a feature, or make any code change:
 
-### Phase 2 — Implement (`/project:implement`)
-- Create branch: `fix/short-description` or `feat/short-description`
-- Implement, run `pnpm test` + `pnpm build`
-- If visual change: verify with Playwright MCP on `http://localhost:5173`
-- Commit (Conventional Commits), push, create PR with `gh pr create`
-- Get Vercel preview URL via `gh pr checks`
-- Deliver PR URL + Vercel preview URL to user
+### Phase 1 — Plan (REQUIRED before any code changes)
+You MUST enter plan mode using `EnterPlanMode` before touching any file.
+- Explore the relevant code with Read, Grep, Glob
+- Present a structured plan: what, why, files to modify, test plan, commit type (`fix:` or `feat:`)
+- Refine with the user using `AskUserQuestion` if needed
+- Call `ExitPlanMode` only when the user explicitly approves
+- The skill `/project:plan` contains the full checklist for this phase
 
-### Phase 3 — Release (`/project:release`)
-- User approves the PR visually
-- Squash merge: `gh pr merge --squash --delete-branch`
-- `git checkout main && git pull`
-- `pnpm release` (bumps version, updates CHANGELOG, creates tag)
-- `git push --follow-tags`
+### Phase 2 — Implement (only after plan is approved)
+You MUST NOT start this phase until the user has approved the plan.
+1. Check out `main` and pull latest: `git checkout main && git pull origin main`
+2. Create branch: `fix/short-description` or `feat/short-description`
+3. Verify the project starts green: run `pnpm test` and `pnpm build` — stop and notify the user if either fails
+4. Implement the approved changes only — do not over-engineer
+5. Run `pnpm test` + `pnpm build` again — fix any failures before continuing
+6. If the change is visual: check if dev server is running (`lsof -i :5173`), start it if not, verify with Playwright MCP, take a screenshot
+7. Commit with Conventional Commits format, push, create PR with `gh pr create`
+8. Wait ~60s then run `gh pr checks` to get the Vercel preview URL
+9. ALWAYS deliver both the PR URL and the Vercel preview URL to the user
+- The skill `/project:implement` contains the full checklist for this phase
 
-### Rules
-- Never merge without explicit user approval
-- Never bump version before merging
-- Always deliver both PR URL and Vercel preview URL after implementing
-- Vercel auto-deploys PRs (preview) and main (production) via GitHub integration
+### Phase 3 — Release (only after user explicitly approves the PR)
+You MUST NOT merge or bump the version until the user says they approve the PR.
+1. `gh pr merge {number} --squash --delete-branch`
+2. `git checkout main && git pull origin main`
+3. `pnpm release` (bumps version, updates CHANGELOG, creates tag)
+4. `git push --follow-tags`
+- The skill `/project:release` contains the full checklist for this phase
+
+### Hard rules
+- NEVER write code before `ExitPlanMode` is called with user approval
+- NEVER merge a PR without explicit user approval
+- NEVER bump the version before merging
+- ALWAYS deliver PR URL + Vercel preview URL at the end of Phase 2
