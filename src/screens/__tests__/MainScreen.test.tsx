@@ -168,7 +168,8 @@ describe('MainScreen', () => {
         bought: false,
       },
     ]);
-    fireEvent.click(screen.getByLabelText(/Delete Milk/i));
+    fireEvent.click(screen.getByLabelText(/Menu for Milk/i));
+    fireEvent.click(screen.getByRole('button', { name: /^Delete$/i }));
     expect(screen.queryByText('Milk')).not.toBeInTheDocument();
   });
 
@@ -182,7 +183,8 @@ describe('MainScreen', () => {
         bought: true,
       },
     ]);
-    fireEvent.click(screen.getByLabelText(/Delete Milk/i));
+    fireEvent.click(screen.getByLabelText(/Menu for Milk/i));
+    fireEvent.click(screen.getByRole('button', { name: /^Delete$/i }));
     expect(screen.queryByText('Milk')).not.toBeInTheDocument();
   });
 

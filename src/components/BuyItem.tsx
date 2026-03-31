@@ -2,6 +2,7 @@ import { purchaseInterval } from '../utils/frequency';
 import type { GroceryItem } from '../types';
 import { useGroceries } from '../store/grocery-context';
 import { InlineEdit } from './InlineEdit';
+import { ItemMenu } from './ItemMenu';
 
 interface BuyItemProps {
   item: GroceryItem;
@@ -34,13 +35,10 @@ export function BuyItem({ item }: BuyItemProps) {
       {interval !== null && (
         <span className="buy-item__badge">{Math.round(interval)}d</span>
       )}
-      <button
-        className="buy-item__delete"
-        onClick={() => dispatch({ type: 'DELETE_ITEM', id: item.id })}
-        aria-label={`Delete ${item.name}`}
-      >
-        ×
-      </button>
+      <ItemMenu
+        itemName={item.name}
+        onDelete={() => dispatch({ type: 'DELETE_ITEM', id: item.id })}
+      />
     </div>
   );
 }
