@@ -44,8 +44,17 @@ describe('saveState / loadState', () => {
   });
 
   it('defaults quantity to 1 for items missing the field', () => {
-    const oldItem = { id: '1', name: 'Milk', purchaseHistory: [], purchaseOrder: 0, bought: false };
-    localStorage.setItem('groceries-app-state', JSON.stringify({ items: [oldItem], sortMode: 'frequency' }));
+    const oldItem = {
+      id: '1',
+      name: 'Milk',
+      purchaseHistory: [],
+      purchaseOrder: 0,
+      bought: false,
+    };
+    localStorage.setItem(
+      'groceries-app-state',
+      JSON.stringify({ items: [oldItem], sortMode: 'frequency' }),
+    );
     const loaded = loadState();
     expect(loaded?.items[0].quantity).toBe(1);
   });

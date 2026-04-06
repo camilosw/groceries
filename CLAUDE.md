@@ -74,6 +74,7 @@ src/
 All commits must follow the format: `type: description` (or `type(scope): description`)
 
 Common types:
+
 - `fix:` — bug fix → bumps **patch** (1.0.0 → 1.0.1)
 - `feat:` — new feature → bumps **minor** (1.0.0 → 1.1.0)
 - `docs:`, `chore:`, `refactor:`, `test:`, `style:` — no version bump
@@ -88,6 +89,7 @@ git push --follow-tags
 ```
 
 For the first release (one-time, to create the initial tag without bumping):
+
 ```
 pnpm release:first
 ```
@@ -99,7 +101,9 @@ pnpm release:first
 When the user asks you to fix a bug, add a feature, or make any code change:
 
 ### Phase 1 — Plan (REQUIRED before any code changes)
+
 You MUST enter plan mode using `EnterPlanMode` before touching any file.
+
 - Explore the relevant code with Read, Grep, Glob
 - Present a structured plan: what, why, files to modify, test plan, commit type (`fix:` or `feat:`)
 - Refine with the user using `AskUserQuestion` if needed
@@ -107,7 +111,9 @@ You MUST enter plan mode using `EnterPlanMode` before touching any file.
 - The skill `/project:plan` contains the full checklist for this phase
 
 ### Phase 2 — Implement (only after plan is approved)
+
 You MUST NOT start this phase until the user has approved the plan.
+
 1. Check out `main` and pull latest: `git checkout main && git pull origin main`
 2. Create branch: `fix/short-description` or `feat/short-description`
 3. Verify the project starts green: run `pnpm test` and `pnpm build` — stop and notify the user if either fails
@@ -117,17 +123,22 @@ You MUST NOT start this phase until the user has approved the plan.
 7. Commit with Conventional Commits format, push, create PR with `gh pr create`
 8. Wait ~60s then run `gh pr checks` to get the Vercel preview URL
 9. ALWAYS deliver both the PR URL and the Vercel preview URL to the user
+
 - The skill `/project:implement` contains the full checklist for this phase
 
 ### Phase 3 — Release (only after user explicitly approves the PR)
+
 You MUST NOT merge or bump the version until the user says they approve the PR.
+
 1. `gh pr merge {number} --squash --delete-branch`
 2. `git checkout main && git pull origin main`
 3. `pnpm release` (bumps version, updates CHANGELOG, creates tag)
 4. `git push --follow-tags`
+
 - The skill `/project:release` contains the full checklist for this phase
 
 ### Hard rules
+
 - NEVER write code before `ExitPlanMode` is called with user approval
 - NEVER merge a PR without explicit user approval
 - NEVER bump the version before merging

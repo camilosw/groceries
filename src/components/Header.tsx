@@ -7,7 +7,11 @@ interface HeaderProps {
   onAboutClick?: () => void;
 }
 
-export function Header({ title = 'Grocery List', onOrderClick, onAboutClick }: HeaderProps) {
+export function Header({
+  title = 'Grocery List',
+  onOrderClick,
+  onAboutClick,
+}: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 

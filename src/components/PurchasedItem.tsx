@@ -41,7 +41,9 @@ export function PurchasedItem({ item }: PurchasedItemProps) {
       <ItemMenu
         itemName={item.name}
         quantity={item.quantity}
-        onQuantityChange={(q) => dispatch({ type: 'SET_QUANTITY', id: item.id, quantity: q })}
+        onQuantityChange={(q) =>
+          dispatch({ type: 'SET_QUANTITY', id: item.id, quantity: q })
+        }
         onDelete={() => dispatch({ type: 'DELETE_ITEM', id: item.id })}
       />
     </div>
