@@ -294,7 +294,10 @@ describe('RENAME_ITEM', () => {
 describe('CREATE_AND_ADD', () => {
   it('sets quantity to 1', () => {
     const state = makeState([]);
-    const next = groceryReducer(state, { type: 'CREATE_AND_ADD', name: 'Bread' });
+    const next = groceryReducer(state, {
+      type: 'CREATE_AND_ADD',
+      name: 'Bread',
+    });
     expect(next.items[0].quantity).toBe(1);
   });
 });
@@ -302,20 +305,32 @@ describe('CREATE_AND_ADD', () => {
 describe('SET_QUANTITY', () => {
   it('sets the quantity of the item', () => {
     const state = makeState([makeItem({ id: '1', quantity: 1 })]);
-    const next = groceryReducer(state, { type: 'SET_QUANTITY', id: '1', quantity: 4 });
+    const next = groceryReducer(state, {
+      type: 'SET_QUANTITY',
+      id: '1',
+      quantity: 4,
+    });
     expect(next.items[0].quantity).toBe(4);
   });
 
   it('clamps quantity to minimum 1', () => {
     const state = makeState([makeItem({ id: '1', quantity: 3 })]);
-    const next = groceryReducer(state, { type: 'SET_QUANTITY', id: '1', quantity: 0 });
+    const next = groceryReducer(state, {
+      type: 'SET_QUANTITY',
+      id: '1',
+      quantity: 0,
+    });
     expect(next.items[0].quantity).toBe(1);
   });
 
   it('does not modify other items', () => {
     const item2 = makeItem({ id: '2', name: 'Eggs', quantity: 2 });
     const state = makeState([makeItem({ id: '1' }), item2]);
-    const next = groceryReducer(state, { type: 'SET_QUANTITY', id: '1', quantity: 3 });
+    const next = groceryReducer(state, {
+      type: 'SET_QUANTITY',
+      id: '1',
+      quantity: 3,
+    });
     expect(next.items[1]).toEqual(item2);
   });
 });

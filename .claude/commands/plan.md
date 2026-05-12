@@ -23,6 +23,7 @@ The user wants to plan a fix or new feature. Your goal in this phase is to under
 5. **Once the user approves**, use `ExitPlanMode` — do not implement anything until the plan is approved.
 
 ## Constraints
+
 - Do NOT create branches or modify files during this phase.
 - If the user requests something that looks like a `feat:`, confirm there is no simpler way to achieve it before planning a full implementation.
 - Follow existing project patterns (see CLAUDE.md for file structure and conventions).

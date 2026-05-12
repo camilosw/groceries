@@ -10,16 +10,18 @@ interface ItemMenuProps {
   onRestore?: () => void;
 }
 
-export function ItemMenu({ itemName, quantity, onQuantityChange, onDelete, onRestore }: ItemMenuProps) {
+export function ItemMenu({
+  itemName,
+  quantity,
+  onQuantityChange,
+  onDelete,
+  onRestore,
+}: ItemMenuProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, right: 0 });
   const [inputValue, setInputValue] = useState(String(quantity));
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (menuOpen) setInputValue(String(quantity));
-  }, [menuOpen, quantity]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -39,8 +41,12 @@ export function ItemMenu({ itemName, quantity, onQuantityChange, onDelete, onRes
   function handleTrigger() {
     if (!menuOpen && triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
-      setDropdownPos({ top: rect.bottom + 4, right: window.innerWidth - rect.right });
+      setDropdownPos({
+        top: rect.bottom + 4,
+        right: window.innerWidth - rect.right,
+      });
     }
+    if (!menuOpen) setInputValue(String(quantity));
     setMenuOpen((v) => !v);
   }
 
@@ -137,7 +143,7 @@ export function ItemMenu({ itemName, quantity, onQuantityChange, onDelete, onRes
               Delete
             </button>
           </div>,
-          document.body
+          document.body,
         )}
     </>
   );
