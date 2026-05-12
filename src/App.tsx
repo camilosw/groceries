@@ -28,6 +28,18 @@ function App() {
     return () => window.removeEventListener('popstate', handlePop);
   }, []);
 
+  function handleExport() {
+    const raw = localStorage.getItem('groceries-app-state');
+    if (!raw) return;
+    const blob = new Blob([raw], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `groceries-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <GroceryProvider>
       <div className="app">
@@ -35,6 +47,7 @@ function App() {
           onOrderClick={
             screen === 'main' ? () => navigateTo('order') : undefined
           }
+          onExportClick={screen === 'main' ? handleExport : undefined}
           onAboutClick={
             screen === 'main' ? () => setAboutOpen(true) : undefined
           }
