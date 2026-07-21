@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from 'react';
 import type { ReactNode } from 'react';
 import { groceryReducer } from './grocery-reducer';
 import type { GroceryAction } from './grocery-reducer';
-import { loadState, saveState } from './storage';
+import { loadState, saveState, seedData } from './storage';
 import type { GroceryState } from './storage';
 
 interface GroceryContextValue {
@@ -16,7 +16,11 @@ export function GroceryProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(
     groceryReducer,
     undefined,
-    () => loadState() ?? { items: [], sortMode: 'frequency' as const },
+    () =>
+      loadState() ??
+      (import.meta.env.DEV
+        ? seedData()
+        : { items: [], sortMode: 'frequency' as const }),
   );
 
   useEffect(() => {

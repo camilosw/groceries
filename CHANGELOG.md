@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.6.0](https://github.com/camilosw/groceries/compare/v1.5.0...v1.6.0) (2026-05-12)
 
-
 ### Features
 
-* add JSON export option to header menu ([#9](https://github.com/camilosw/groceries/issues/9)) ([3d1768e](https://github.com/camilosw/groceries/commit/3d1768ec9eb187f6286caa1a9f95f272e57b427e))
+- add JSON export option to header menu ([#9](https://github.com/camilosw/groceries/issues/9)) ([3d1768e](https://github.com/camilosw/groceries/commit/3d1768ec9eb187f6286caa1a9f95f272e57b427e))
 
 ## [1.5.0](https://github.com/camilosw/groceries/compare/v1.4.0...v1.5.0) (2026-04-01)
 

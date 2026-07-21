@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { saveState, loadState } from '../storage';
+import { saveState, loadState, seedData } from '../storage';
 import type { GroceryState } from '../storage';
 
 const mockState: GroceryState = {
@@ -57,5 +57,49 @@ describe('saveState / loadState', () => {
     );
     const loaded = loadState();
     expect(loaded?.items[0].quantity).toBe(1);
+  });
+});
+
+describe('seedData', () => {
+  it('returns a non-empty state with a valid sortMode', () => {
+    const state = seedData();
+    expect(state.items.length).toBeGreaterThan(0);
+    expect(state.sortMode).toBe('frequency');
+  });
+
+  it('returns items conforming to the GroceryItem shape', () => {
+    const state = seedData();
+    for (const item of state.items) {
+      expect(typeof item.id).toBe('string');
+      expect(item.id.length).toBeGreaterThan(0);
+      expect(typeof item.name).toBe('string');
+      expect(Array.isArray(item.purchaseHistory)).toBe(true);
+      expect(typeof item.purchaseOrder).toBe('number');
+      expect(typeof item.bought).toBe('boolean');
+      expect(item.quantity).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it('has unique ids and purchaseOrder values', () => {
+    const state = seedData();
+    const ids = state.items.map((item) => item.id);
+    const orders = state.items.map((item) => item.purchaseOrder);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(new Set(orders).size).toBe(orders.length);
+  });
+
+  it('includes both to-buy and purchased items', () => {
+    const state = seedData();
+    expect(state.items.some((item) => item.bought)).toBe(true);
+    expect(state.items.some((item) => !item.bought)).toBe(true);
+  });
+
+  it('includes purchased items with 0, 1, and 2+ history entries', () => {
+    const state = seedData();
+    const historyLengths = state.items
+      .filter((item) => item.bought)
+      .map((item) => item.purchaseHistory.length);
+    expect(historyLengths).toContain(1);
+    expect(historyLengths.some((n) => n >= 2)).toBe(true);
   });
 });
