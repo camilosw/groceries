@@ -1,4 +1,4 @@
-import { purchaseInterval } from '../utils/frequency';
+import { daysUntilNextPurchase } from '../utils/frequency';
 import type { GroceryItem } from '../types';
 import { useGroceries } from '../store/grocery-context';
 import { InlineEdit } from './InlineEdit';
@@ -10,7 +10,7 @@ interface PurchasedItemProps {
 
 export function PurchasedItem({ item }: PurchasedItemProps) {
   const { dispatch } = useGroceries();
-  const interval = purchaseInterval(item.purchaseHistory);
+  const daysUntilNext = daysUntilNextPurchase(item.purchaseHistory);
 
   return (
     <div className="purchased-item">
@@ -35,8 +35,10 @@ export function PurchasedItem({ item }: PurchasedItemProps) {
       {item.quantity > 1 && (
         <span className="purchased-item__quantity">x{item.quantity}</span>
       )}
-      {interval !== null && (
-        <span className="purchased-item__badge">{Math.round(interval)}d</span>
+      {daysUntilNext !== null && (
+        <span className="purchased-item__badge">
+          {Math.round(daysUntilNext)}d
+        </span>
       )}
       <ItemMenu
         itemName={item.name}

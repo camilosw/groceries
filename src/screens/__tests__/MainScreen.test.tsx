@@ -131,7 +131,7 @@ describe('MainScreen', () => {
         quantity: 1,
       },
     ]);
-    expect(screen.getByText(/^\d+d$/)).toBeInTheDocument();
+    expect(screen.getByText(/^-?\d+d$/)).toBeInTheDocument();
   });
 
   it('renders purchased items', () => {

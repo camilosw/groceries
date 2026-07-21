@@ -10,7 +10,7 @@
 ## Key decisions (from PLAN.md)
 
 - Purchase history: timestamp array, exponential decay frequency scoring
-- Purchase interval displayed as `c/Nd` (median gap, shown when ≥2 purchases)
+- Purchase badge shows days until next expected purchase (median historical gap minus days since last purchase; negative = overdue), shown when ≥2 purchases
 - Add button is a FAB, not inline add-bar
 - Reordering on dedicated Order screen (accessible from header ⋮ menu)
 - UI language: English
@@ -26,9 +26,9 @@ src/
   types.ts          -- GroceryItem interface, PurchasedSortMode type
   test-setup.ts     -- @testing-library/jest-dom import for Vitest
   utils/
-    frequency.ts                -- frequencyScore(), purchaseInterval(), pruneHistory()
+    frequency.ts                -- frequencyScore(), purchaseInterval(), daysUntilNextPurchase(), pruneHistory()
     __tests__/
-      frequency.test.ts         -- 16 tests (all passing)
+      frequency.test.ts         -- 20 tests (all passing)
   store/
     storage.ts                  -- GroceryState type, saveState(), loadState(), seedData()
     grocery-reducer.ts          -- groceryReducer + GroceryAction type (all actions implemented)
@@ -39,9 +39,9 @@ src/
   components/
     Header.tsx / Header.css     -- Sticky orange header with ⋮ menu button + dropdown
     SectionHeader.tsx           -- "To Buy (N)" / "Purchased (N)" divider
-    BuyItem.tsx                 -- Unchecked item (checkbox + name + c/Nd badge)
+    BuyItem.tsx                 -- Unchecked item (checkbox + name)
     BuyList.tsx                 -- Sorted to-buy list + empty state
-    PurchasedItem.tsx           -- Checked item (checkbox + name + c/Nd badge + delete btn)
+    PurchasedItem.tsx           -- Checked item (checkbox + name + days-until-next-purchase badge + delete btn)
     PurchasedList.tsx           -- Sort toggle (frequency/alphabetical) + purchased items + empty state
     Fab.tsx / Fab.css           -- Floating "+" button
     AddItemRow.tsx              -- Row in add screen (name + green/grey "+" button)

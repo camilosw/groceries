@@ -25,6 +25,17 @@ export function purchaseInterval(history: number[]): number | null {
   return gaps.length % 2 === 0 ? (gaps[mid - 1] + gaps[mid]) / 2 : gaps[mid];
 }
 
+export function daysUntilNextPurchase(
+  history: number[],
+  now: number = Date.now(),
+): number | null {
+  const interval = purchaseInterval(history);
+  if (interval === null) return null;
+  const lastPurchase = Math.max(...history);
+  const daysSinceLast = (now - lastPurchase) / MS_PER_DAY;
+  return interval - daysSinceLast;
+}
+
 export function pruneHistory(
   history: number[],
   now: number = Date.now(),
