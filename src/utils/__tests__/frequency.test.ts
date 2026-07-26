@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { frequencyScore, purchaseInterval, pruneHistory } from '../frequency';
+import {
+  frequencyScore,
+  purchaseInterval,
+  daysUntilNextPurchase,
+  purchaseUrgency,
+  pruneHistory,
+} from '../frequency';
 
 const DAY = 1000 * 60 * 60 * 24;
 const NOW = 1_000_000 * DAY; // arbitrary fixed "now"
@@ -63,6 +69,42 @@ describe('purchaseInterval', () => {
   it('handles unsorted timestamps', () => {
     const interval = purchaseInterval([NOW, NOW - 7 * DAY]);
     expect(interval).toBeCloseTo(7, 5);
+  });
+});
+
+describe('daysUntilNextPurchase', () => {
+  const history = [NOW - 40 * DAY, NOW - 30 * DAY]; // 10-day interval, last purchase at NOW - 30 * DAY
+
+  it('returns null for fewer than 2 purchases', () => {
+    expect(daysUntilNextPurchase([])).toBeNull();
+    expect(daysUntilNextPurchase([NOW])).toBeNull();
+  });
+
+  it('returns the full interval when the last purchase was just now', () => {
+    expect(daysUntilNextPurchase(history, NOW - 30 * DAY)).toBeCloseTo(10, 5);
+  });
+
+  it('counts down as time passes without a new purchase (not yet due)', () => {
+    expect(daysUntilNextPurchase(history, NOW - 26 * DAY)).toBeCloseTo(6, 5);
+  });
+
+  it('goes negative once the item is overdue', () => {
+    expect(daysUntilNextPurchase(history, NOW - 15 * DAY)).toBeCloseTo(-5, 5);
+  });
+});
+
+describe('purchaseUrgency', () => {
+  it('returns "ok" when there is still time', () => {
+    expect(purchaseUrgency(3)).toBe('ok');
+  });
+
+  it('returns "today" when due today (rounds to 0)', () => {
+    expect(purchaseUrgency(0.4)).toBe('today');
+    expect(purchaseUrgency(-0.4)).toBe('today');
+  });
+
+  it('returns "overdue" when past due', () => {
+    expect(purchaseUrgency(-5)).toBe('overdue');
   });
 });
 

@@ -10,8 +10,12 @@
   --text-light: #b89880;
   --text-faint: #d5c8b8;
   --text-placeholder: #c5b8a8;
-  --badge-bg: #ffd6cc;
-  --badge-text: #c8442b;
+  --badge-bg-ok: #dcead2;
+  --badge-text-ok: #3f7a35;
+  --badge-bg-today: #ffedc2;
+  --badge-text-today: #b8720a;
+  --badge-bg-overdue: #ffd6cc;
+  --badge-text-overdue: #c8442b;
   --font-hand: 'Caveat', cursive;
   --font-ui: 'Nunito', sans-serif;
 }

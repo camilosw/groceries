@@ -25,6 +25,26 @@ export function purchaseInterval(history: number[]): number | null {
   return gaps.length % 2 === 0 ? (gaps[mid - 1] + gaps[mid]) / 2 : gaps[mid];
 }
 
+export function daysUntilNextPurchase(
+  history: number[],
+  now: number = Date.now(),
+): number | null {
+  const interval = purchaseInterval(history);
+  if (interval === null) return null;
+  const lastPurchase = Math.max(...history);
+  const daysSinceLast = (now - lastPurchase) / MS_PER_DAY;
+  return interval - daysSinceLast;
+}
+
+export type PurchaseUrgency = 'ok' | 'today' | 'overdue';
+
+export function purchaseUrgency(daysUntilNext: number): PurchaseUrgency {
+  const rounded = Math.round(daysUntilNext);
+  if (rounded > 0) return 'ok';
+  if (rounded === 0) return 'today';
+  return 'overdue';
+}
+
 export function pruneHistory(
   history: number[],
   now: number = Date.now(),

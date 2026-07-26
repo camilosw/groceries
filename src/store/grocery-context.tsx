@@ -20,7 +20,7 @@ export function GroceryProvider({ children }: { children: ReactNode }) {
       loadState() ??
       (import.meta.env.DEV
         ? seedData()
-        : { items: [], sortMode: 'frequency' as const }),
+        : { items: [], sortMode: 'restock' as const }),
   );
 
   useEffect(() => {
