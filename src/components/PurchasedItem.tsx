@@ -1,4 +1,4 @@
-import { daysUntilNextPurchase } from '../utils/frequency';
+import { daysUntilNextPurchase, purchaseUrgency } from '../utils/frequency';
 import type { GroceryItem } from '../types';
 import { useGroceries } from '../store/grocery-context';
 import { InlineEdit } from './InlineEdit';
@@ -36,7 +36,9 @@ export function PurchasedItem({ item }: PurchasedItemProps) {
         <span className="purchased-item__quantity">x{item.quantity}</span>
       )}
       {daysUntilNext !== null && (
-        <span className="purchased-item__badge">
+        <span
+          className={`purchased-item__badge purchased-item__badge--${purchaseUrgency(daysUntilNext)}`}
+        >
           {Math.round(daysUntilNext)}d
         </span>
       )}

@@ -3,6 +3,7 @@ import {
   frequencyScore,
   purchaseInterval,
   daysUntilNextPurchase,
+  purchaseUrgency,
   pruneHistory,
 } from '../frequency';
 
@@ -89,6 +90,21 @@ describe('daysUntilNextPurchase', () => {
 
   it('goes negative once the item is overdue', () => {
     expect(daysUntilNextPurchase(history, NOW - 15 * DAY)).toBeCloseTo(-5, 5);
+  });
+});
+
+describe('purchaseUrgency', () => {
+  it('returns "ok" when there is still time', () => {
+    expect(purchaseUrgency(3)).toBe('ok');
+  });
+
+  it('returns "today" when due today (rounds to 0)', () => {
+    expect(purchaseUrgency(0.4)).toBe('today');
+    expect(purchaseUrgency(-0.4)).toBe('today');
+  });
+
+  it('returns "overdue" when past due', () => {
+    expect(purchaseUrgency(-5)).toBe('overdue');
   });
 });
 

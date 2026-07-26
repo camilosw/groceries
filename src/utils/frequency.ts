@@ -36,6 +36,15 @@ export function daysUntilNextPurchase(
   return interval - daysSinceLast;
 }
 
+export type PurchaseUrgency = 'ok' | 'today' | 'overdue';
+
+export function purchaseUrgency(daysUntilNext: number): PurchaseUrgency {
+  const rounded = Math.round(daysUntilNext);
+  if (rounded > 0) return 'ok';
+  if (rounded === 0) return 'today';
+  return 'overdue';
+}
+
 export function pruneHistory(
   history: number[],
   now: number = Date.now(),
