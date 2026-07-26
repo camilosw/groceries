@@ -42,7 +42,7 @@ export function seedData(): GroceryState {
     {
       id: crypto.randomUUID(),
       name: 'Milk',
-      purchaseHistory: [daysAgo(12), daysAgo(8), daysAgo(4)],
+      purchaseHistory: [daysAgo(18), daysAgo(11), daysAgo(4)],
       purchaseOrder: 0,
       bought: true,
       quantity: 1,
@@ -58,7 +58,7 @@ export function seedData(): GroceryState {
     {
       id: crypto.randomUUID(),
       name: 'Bread',
-      purchaseHistory: [daysAgo(15), daysAgo(10), daysAgo(5)],
+      purchaseHistory: [daysAgo(20), daysAgo(15), daysAgo(10)],
       purchaseOrder: 2,
       bought: true,
       quantity: 1,
@@ -66,7 +66,7 @@ export function seedData(): GroceryState {
     {
       id: crypto.randomUUID(),
       name: 'Cheese',
-      purchaseHistory: [daysAgo(9), daysAgo(5), daysAgo(2)],
+      purchaseHistory: [daysAgo(13), daysAgo(9), daysAgo(3)],
       purchaseOrder: 3,
       bought: true,
       quantity: 1,
