@@ -64,7 +64,7 @@ describe('seedData', () => {
   it('returns a non-empty state with a valid sortMode', () => {
     const state = seedData();
     expect(state.items.length).toBeGreaterThan(0);
-    expect(state.sortMode).toBe('frequency');
+    expect(state.sortMode).toBe('restock');
   });
 
   it('returns items conforming to the GroceryItem shape', () => {

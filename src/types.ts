@@ -7,4 +7,4 @@ export interface GroceryItem {
   quantity: number; // how many to buy, minimum 1
 }
 
-export type PurchasedSortMode = 'frequency' | 'alphabetical';
+export type PurchasedSortMode = 'frequency' | 'alphabetical' | 'restock';

@@ -121,5 +121,5 @@ export function seedData(): GroceryState {
     },
   ];
 
-  return { items, sortMode: 'frequency' };
+  return { items, sortMode: 'restock' };
 }
