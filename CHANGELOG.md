@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.7.0](https://github.com/camilosw/groceries/compare/v1.6.0...v1.7.0) (2026-07-26)
+
+
+### Features
+
+* seed mock grocery data in development mode ([#10](https://github.com/camilosw/groceries/issues/10)) ([82bf1d1](https://github.com/camilosw/groceries/commit/82bf1d14ae0cd55f57256241886b8904c4dea8ae))
+* show days until next expected purchase on badge ([#11](https://github.com/camilosw/groceries/issues/11)) ([a8ab6b9](https://github.com/camilosw/groceries/commit/a8ab6b99cb37f5c1251c9fe1fac05bfd1861c510))
+
 ## [1.6.0](https://github.com/camilosw/groceries/compare/v1.5.0...v1.6.0) (2026-05-12)
 
 ### Features
