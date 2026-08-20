@@ -58,13 +58,31 @@ describe('saveState / loadState', () => {
     const loaded = loadState();
     expect(loaded?.items[0].quantity).toBe(1);
   });
+
+  it('falls back to frequency for a removed sortMode', () => {
+    localStorage.setItem(
+      'groceries-app-state',
+      JSON.stringify({ items: mockState.items, sortMode: 'restock' }),
+    );
+    const loaded = loadState();
+    expect(loaded?.sortMode).toBe('frequency');
+    expect(loaded?.items).toEqual(mockState.items);
+  });
+
+  it('falls back to frequency for an unknown sortMode', () => {
+    localStorage.setItem(
+      'groceries-app-state',
+      JSON.stringify({ items: mockState.items, sortMode: 'nonsense' }),
+    );
+    expect(loadState()?.sortMode).toBe('frequency');
+  });
 });
 
 describe('seedData', () => {
   it('returns a non-empty state with a valid sortMode', () => {
     const state = seedData();
     expect(state.items.length).toBeGreaterThan(0);
-    expect(state.sortMode).toBe('restock');
+    expect(state.sortMode).toBe('frequency');
   });
 
   it('returns items conforming to the GroceryItem shape', () => {

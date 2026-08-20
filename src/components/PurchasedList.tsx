@@ -1,7 +1,7 @@
 import { PurchasedItem } from './PurchasedItem';
 import type { GroceryItem, PurchasedSortMode } from '../types';
 import { useGroceries } from '../store/grocery-context';
-import { frequencyScore, daysUntilNextPurchase } from '../utils/frequency';
+import { frequencyScore } from '../utils/frequency';
 
 interface PurchasedListProps {
   items: GroceryItem[];
@@ -14,12 +14,6 @@ function sortPurchased(
   const sorted = [...items];
   if (mode === 'alphabetical') {
     sorted.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (mode === 'restock') {
-    sorted.sort((a, b) => {
-      const aDays = daysUntilNextPurchase(a.purchaseHistory) ?? Infinity;
-      const bDays = daysUntilNextPurchase(b.purchaseHistory) ?? Infinity;
-      return aDays - bDays;
-    });
   } else {
     sorted.sort(
       (a, b) =>
@@ -36,12 +30,6 @@ export function PurchasedList({ items }: PurchasedListProps) {
   return (
     <div className="purchased-list">
       <div className="purchased-list__sort-bar">
-        <button
-          className={`purchased-list__sort-btn${state.sortMode === 'restock' ? ' purchased-list__sort-btn--active' : ''}`}
-          onClick={() => dispatch({ type: 'SET_SORT_MODE', mode: 'restock' })}
-        >
-          Restock
-        </button>
         <button
           className={`purchased-list__sort-btn${state.sortMode === 'frequency' ? ' purchased-list__sort-btn--active' : ''}`}
           onClick={() => dispatch({ type: 'SET_SORT_MODE', mode: 'frequency' })}

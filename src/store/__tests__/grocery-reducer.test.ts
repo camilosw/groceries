@@ -190,15 +190,6 @@ describe('SET_SORT_MODE', () => {
     expect(next.sortMode).toBe('frequency');
   });
 
-  it('sets sortMode to restock', () => {
-    const state = makeState([]);
-    const next = groceryReducer(state, {
-      type: 'SET_SORT_MODE',
-      mode: 'restock',
-    });
-    expect(next.sortMode).toBe('restock');
-  });
-
   it('does not modify items', () => {
     const items = [makeItem({ id: '1' })];
     const state = makeState(items);
