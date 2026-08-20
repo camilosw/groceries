@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.8.0](https://github.com/camilosw/groceries/compare/v1.7.0...v1.8.0) (2026-08-20)
+
+
+### Features
+
+* import data from an exported backup file ([#14](https://github.com/camilosw/groceries/issues/14)) ([b0d1f02](https://github.com/camilosw/groceries/commit/b0d1f0275ddfc859768ad4b2ebba2449c0dbe3f9))
+* remove restock sort tab from purchased list ([#12](https://github.com/camilosw/groceries/issues/12)) ([ba5ab2a](https://github.com/camilosw/groceries/commit/ba5ab2ac31ebc888f524d7fbc272b53d170c663b))
+
 ## [1.7.0](https://github.com/camilosw/groceries/compare/v1.6.0...v1.7.0) (2026-07-26)
 
 
