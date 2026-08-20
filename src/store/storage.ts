@@ -7,11 +7,7 @@ export interface GroceryState {
 
 const STORAGE_KEY = 'groceries-app-state';
 
-const SORT_MODES: PurchasedSortMode[] = [
-  'frequency',
-  'alphabetical',
-  'restock',
-];
+const SORT_MODES: PurchasedSortMode[] = ['frequency', 'alphabetical'];
 
 export function saveState(state: GroceryState): void {
   try {
@@ -63,7 +59,7 @@ export function parseState(raw: string): GroceryState | null {
 
     const sortMode: PurchasedSortMode = SORT_MODES.includes(parsed.sortMode)
       ? parsed.sortMode
-      : 'restock';
+      : 'frequency';
 
     return { items, sortMode };
   } catch {
@@ -165,5 +161,5 @@ export function seedData(): GroceryState {
     },
   ];
 
-  return { items, sortMode: 'restock' };
+  return { items, sortMode: 'frequency' };
 }

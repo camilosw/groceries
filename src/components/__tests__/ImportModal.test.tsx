@@ -22,7 +22,7 @@ const importedState: GroceryState = {
       quantity: 1,
     },
   ],
-  sortMode: 'restock',
+  sortMode: 'frequency',
 };
 
 function renderModal(state: GroceryState | null, props = {}) {

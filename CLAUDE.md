@@ -30,15 +30,15 @@ src/
   utils/
     frequency.ts                -- frequencyScore(), purchaseInterval(), daysUntilNextPurchase(), pruneHistory()
     __tests__/
-      frequency.test.ts         -- 20 tests (all passing)
+      frequency.test.ts         -- 23 tests (all passing)
   store/
     storage.ts                  -- GroceryState type, saveState(), loadState(), parseState(), seedData()
     backup.ts                   -- exportState() (JSON download), readBackupFile() (parse a picked file)
     grocery-reducer.ts          -- groceryReducer + GroceryAction type (all actions implemented)
     grocery-context.tsx         -- GroceryProvider, useGroceries hook (empty initial state)
     __tests__/
-      grocery-reducer.test.ts   -- 23 tests (all passing)
-      storage.test.ts           -- 6 tests (all passing)
+      grocery-reducer.test.ts   -- 33 tests (all passing)
+      storage.test.ts           -- 21 tests (all passing)
   components/
     Header.tsx / Header.css     -- Sticky orange header with ⋮ menu button + dropdown
     SectionHeader.tsx           -- "To Buy (N)" / "Purchased (N)" divider
@@ -59,7 +59,7 @@ src/
     AddScreen.tsx / AddScreen.css    -- Search input + item list + new item row
     OrderScreen.tsx / OrderScreen.css -- Drag-and-drop reorder list (@dnd-kit, touch support)
     __tests__/
-      MainScreen.test.tsx       -- 13 tests (all passing)
+      MainScreen.test.tsx       -- 16 tests (all passing)
       AddScreen.test.tsx        -- 9 tests (all passing)
 ```
 
@@ -71,7 +71,7 @@ src/
 ## Running
 
 - `pnpm dev` — dev server (empty initial state; FAB opens add screen)
-- `pnpm test` — run all tests with Vitest (121 passing)
+- `pnpm test` — run all tests with Vitest (120 passing)
 - `pnpm build` — production build
 
 ## Commit convention (Conventional Commits)
