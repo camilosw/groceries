@@ -5,6 +5,7 @@ interface HeaderProps {
   title?: string;
   onOrderClick?: () => void;
   onExportClick?: () => void;
+  onImportClick?: () => void;
   onAboutClick?: () => void;
 }
 
@@ -12,6 +13,7 @@ export function Header({
   title = 'Grocery List',
   onOrderClick,
   onExportClick,
+  onImportClick,
   onAboutClick,
 }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -38,6 +40,11 @@ export function Header({
     onExportClick?.();
   }
 
+  function handleImportClick() {
+    setMenuOpen(false);
+    onImportClick?.();
+  }
+
   function handleAboutClick() {
     setMenuOpen(false);
     onAboutClick?.();
@@ -57,7 +64,7 @@ export function Header({
         />
       </svg>
       <div className="app-header__title">{title}</div>
-      {(onOrderClick || onExportClick || onAboutClick) && (
+      {(onOrderClick || onExportClick || onImportClick || onAboutClick) && (
         <div className="app-header__menu" ref={menuRef}>
           <button
             className="app-header__menu-btn"
@@ -82,6 +89,14 @@ export function Header({
                   onClick={handleExportClick}
                 >
                   Export data
+                </button>
+              )}
+              {onImportClick && (
+                <button
+                  className="app-header__dropdown-item"
+                  onClick={handleImportClick}
+                >
+                  Import data
                 </button>
               )}
               {onAboutClick && (

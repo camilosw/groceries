@@ -343,3 +343,28 @@ describe('SET_QUANTITY', () => {
     expect(next.items[1]).toEqual(item2);
   });
 });
+
+describe('IMPORT_STATE', () => {
+  it('replaces items and sortMode with the imported state', () => {
+    const state = makeState([makeItem({ id: '1', name: 'Milk' })]);
+    const imported: GroceryState = {
+      items: [makeItem({ id: '2', name: 'Coffee', bought: true })],
+      sortMode: 'alphabetical',
+    };
+    const next = groceryReducer(state, {
+      type: 'IMPORT_STATE',
+      state: imported,
+    });
+    expect(next.items.map((item) => item.name)).toEqual(['Coffee']);
+    expect(next.sortMode).toBe('alphabetical');
+  });
+
+  it('does not mutate the previous state', () => {
+    const state = makeState([makeItem({ id: '1', name: 'Milk' })]);
+    groceryReducer(state, {
+      type: 'IMPORT_STATE',
+      state: makeState([makeItem({ id: '2', name: 'Coffee' })]),
+    });
+    expect(state.items.map((item) => item.name)).toEqual(['Milk']);
+  });
+});
