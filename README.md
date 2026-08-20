@@ -10,6 +10,7 @@ A mobile-first grocery list PWA built with React 19 and TypeScript.
 - **Reorder screen** — drag-and-drop (mouse and touch) to set a custom shopping order
 - **Edit items** — tap any item name to rename it inline; confirm with Enter or blur, cancel with Escape
 - **Sort purchased items** — toggle between frequency-based and alphabetical sorting
+- **Export / Import** — download your list and purchase history as a JSON backup, and restore it from the ⋮ menu on any device
 - **Persistent** — state is saved to `localStorage` automatically
 - **PWA** — installable on mobile; works offline
 
@@ -42,7 +43,8 @@ src/
   utils/
     frequency.ts            # frequencyScore(), purchaseInterval(), pruneHistory()
   store/
-    storage.ts              # loadState() / saveState() (localStorage)
+    storage.ts              # loadState() / saveState() / parseState() (localStorage)
+    backup.ts               # exportState() download + readBackupFile() import
     grocery-reducer.ts      # Pure reducer + all action types
     grocery-context.tsx     # GroceryProvider + useGroceries hook
   components/
@@ -51,6 +53,7 @@ src/
     AddItemRow              # Row in the add screen
     InlineEdit              # Tap-to-edit text field
     Header                  # Sticky header with ⋮ menu
+    ImportModal             # Confirm/report an imported backup file
     Fab                     # Floating "+" button
   screens/
     MainScreen              # Main list view

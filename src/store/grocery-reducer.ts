@@ -12,7 +12,8 @@ export type GroceryAction =
   | { type: 'REMOVE_FROM_BUY'; id: string }
   | { type: 'REORDER'; activeId: string; overId: string }
   | { type: 'RENAME_ITEM'; id: string; name: string }
-  | { type: 'SET_QUANTITY'; id: string; quantity: number };
+  | { type: 'SET_QUANTITY'; id: string; quantity: number }
+  | { type: 'IMPORT_STATE'; state: GroceryState };
 
 export function groceryReducer(
   state: GroceryState,
@@ -125,6 +126,10 @@ export function groceryReducer(
           item.id === action.id ? { ...item, quantity } : item,
         ),
       };
+    }
+    case 'IMPORT_STATE': {
+      // Already validated and normalized by parseState().
+      return action.state;
     }
     default:
       return state;

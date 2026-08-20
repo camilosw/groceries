@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { saveState, loadState, seedData } from '../storage';
+import { saveState, loadState, parseState, seedData } from '../storage';
 import type { GroceryState } from '../storage';
 
 const mockState: GroceryState = {
@@ -75,6 +75,73 @@ describe('saveState / loadState', () => {
       JSON.stringify({ items: mockState.items, sortMode: 'nonsense' }),
     );
     expect(loadState()?.sortMode).toBe('frequency');
+  });
+});
+
+describe('parseState', () => {
+  it('parses a serialized backup', () => {
+    expect(parseState(JSON.stringify(mockState))).toEqual(mockState);
+  });
+
+  it('returns null for malformed JSON', () => {
+    expect(parseState('not-json{{{')).toBeNull();
+  });
+
+  it('returns null when items is not an array', () => {
+    expect(parseState(JSON.stringify({ items: 'bad' }))).toBeNull();
+  });
+
+  it('returns null when an item is missing id or name', () => {
+    expect(
+      parseState(JSON.stringify({ items: [{ name: 'Milk' }] })),
+    ).toBeNull();
+    expect(parseState(JSON.stringify({ items: [{ id: '1' }] }))).toBeNull();
+  });
+
+  it('defaults quantity to 1 and purchaseOrder to the item index', () => {
+    const parsed = parseState(
+      JSON.stringify({ items: [{ id: '1', name: 'Milk' }] }),
+    );
+    expect(parsed?.items[0].quantity).toBe(1);
+    expect(parsed?.items[0].purchaseOrder).toBe(0);
+    expect(parsed?.items[0].purchaseHistory).toEqual([]);
+    expect(parsed?.items[0].bought).toBe(false);
+  });
+
+  it('raises quantities below 1 to 1', () => {
+    const parsed = parseState(
+      JSON.stringify({ items: [{ id: '1', name: 'Milk', quantity: 0 }] }),
+    );
+    expect(parsed?.items[0].quantity).toBe(1);
+  });
+
+  it('falls back to frequency for an unknown sortMode', () => {
+    const parsed = parseState(
+      JSON.stringify({ items: [], sortMode: 'nonsense' }),
+    );
+    expect(parsed?.sortMode).toBe('frequency');
+  });
+
+  it('drops items whose id duplicates an earlier one', () => {
+    const parsed = parseState(
+      JSON.stringify({
+        items: [
+          { id: '1', name: 'Milk' },
+          { id: '1', name: 'Milk copy' },
+          { id: '2', name: 'Eggs' },
+        ],
+      }),
+    );
+    expect(parsed?.items.map((item) => item.name)).toEqual(['Milk', 'Eggs']);
+  });
+
+  it('filters non-numeric purchaseHistory entries', () => {
+    const parsed = parseState(
+      JSON.stringify({
+        items: [{ id: '1', name: 'Milk', purchaseHistory: [1000, 'x', null] }],
+      }),
+    );
+    expect(parsed?.items[0].purchaseHistory).toEqual([1000]);
   });
 });
 

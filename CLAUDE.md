@@ -20,7 +20,9 @@
 ```
 src/
   main.tsx          -- Entry point
-  App.tsx           -- GroceryProvider + Header + screen router (main | add | order)
+  App.tsx           -- GroceryProvider wrapper + AppContent (Header, screen router, export/import)
+  __tests__/
+    App.test.tsx    -- 3 tests (import flow, all passing)
   App.css           -- Global styles: CSS vars, reset, .app container, notebook effect
   index.css         -- Minimal body reset
   types.ts          -- GroceryItem interface, PurchasedSortMode type
@@ -30,12 +32,13 @@ src/
     __tests__/
       frequency.test.ts         -- 23 tests (all passing)
   store/
-    storage.ts                  -- GroceryState type, saveState(), loadState(), seedData()
+    storage.ts                  -- GroceryState type, saveState(), loadState(), parseState(), seedData()
+    backup.ts                   -- exportState() (JSON download), readBackupFile() (parse a picked file)
     grocery-reducer.ts          -- groceryReducer + GroceryAction type (all actions implemented)
     grocery-context.tsx         -- GroceryProvider, useGroceries hook (empty initial state)
     __tests__/
-      grocery-reducer.test.ts   -- 31 tests (all passing)
-      storage.test.ts           -- 12 tests (all passing)
+      grocery-reducer.test.ts   -- 33 tests (all passing)
+      storage.test.ts           -- 21 tests (all passing)
   components/
     Header.tsx / Header.css     -- Sticky orange header with ⋮ menu button + dropdown
     SectionHeader.tsx           -- "To Buy (N)" / "Purchased (N)" divider
@@ -46,9 +49,11 @@ src/
     Fab.tsx / Fab.css           -- Floating "+" button
     AddItemRow.tsx              -- Row in add screen (name + green/grey "+" button)
     InlineEdit.tsx              -- Tap-to-edit text field (Enter/Escape/blur to save)
+    ImportModal.tsx / .css      -- Confirm replacing the list with an imported backup (or report a bad file)
     __tests__/
       PurchasedList.test.tsx    -- 5 tests (all passing)
       InlineEdit.test.tsx       -- 5 tests (all passing)
+      ImportModal.test.tsx      -- 5 tests (all passing)
   screens/
     MainScreen.tsx / MainScreen.css  -- To Buy + Purchased sections + FAB
     AddScreen.tsx / AddScreen.css    -- Search input + item list + new item row
@@ -66,7 +71,7 @@ src/
 ## Running
 
 - `pnpm dev` — dev server (empty initial state; FAB opens add screen)
-- `pnpm test` — run all tests with Vitest (101 passing)
+- `pnpm test` — run all tests with Vitest (120 passing)
 - `pnpm build` — production build
 
 ## Commit convention (Conventional Commits)

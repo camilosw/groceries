@@ -17,23 +17,58 @@ export function saveState(state: GroceryState): void {
   }
 }
 
-export function loadState(): GroceryState | null {
+/**
+ * Parses and normalizes a serialized GroceryState, from localStorage or from an
+ * imported backup file. Returns null when the text is not a grocery backup.
+ */
+export function parseState(raw: string): GroceryState | null {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed?.items)) return null;
-    const items: GroceryItem[] = parsed.items.map((item: GroceryItem) => ({
-      ...item,
-      quantity: item.quantity ?? 1,
-    }));
+
+    const seen = new Set<string>();
+    const items: GroceryItem[] = [];
+    for (const [index, entry] of parsed.items.entries()) {
+      const item = entry as Partial<GroceryItem>;
+      if (typeof item?.id !== 'string' || !item.id) return null;
+      if (typeof item?.name !== 'string' || !item.name) return null;
+      // Duplicate ids would break React keys and per-id reducer updates.
+      if (seen.has(item.id)) continue;
+      seen.add(item.id);
+      items.push({
+        id: item.id,
+        name: item.name,
+        purchaseHistory: Array.isArray(item.purchaseHistory)
+          ? item.purchaseHistory.filter(
+              (ts: unknown): ts is number =>
+                typeof ts === 'number' && Number.isFinite(ts),
+            )
+          : [],
+        purchaseOrder:
+          typeof item.purchaseOrder === 'number' &&
+          Number.isFinite(item.purchaseOrder)
+            ? item.purchaseOrder
+            : index,
+        bought: Boolean(item.bought),
+        quantity:
+          typeof item.quantity === 'number' && Number.isFinite(item.quantity)
+            ? Math.max(1, item.quantity)
+            : 1,
+      });
+    }
+
     const sortMode: PurchasedSortMode = SORT_MODES.includes(parsed.sortMode)
       ? parsed.sortMode
       : 'frequency';
-    return { ...parsed, items, sortMode } as GroceryState;
+
+    return { items, sortMode };
   } catch {
     return null;
   }
+}
+
+export function loadState(): GroceryState | null {
+  return parseState(localStorage.getItem(STORAGE_KEY) ?? '');
 }
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
